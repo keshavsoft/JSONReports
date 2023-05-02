@@ -1,5 +1,5 @@
 # JSONReports
-Reports Api (not UI or Htmls) from Json
+Reports Api (not UI or Htmls) from Json v5.2
 
 follow below steps for development
 
