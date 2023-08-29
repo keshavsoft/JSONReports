@@ -2,9 +2,8 @@ let express = require("express");
 let router = express.Router();
 
 let Repo = require("../../../../Repository/Validate/Users/InUserDataJson/ForUserNameAndPassword")
-let CommonjwtFunc = require("../../../../../../common/Jwt/Bs5");
-
-
+// let CommonjwtFunc = require("../../../../../../common/Jwt/Bs5");
+let CommonjwtFunc = require("../../../../../../common/Jwt/ForLogin/UserCredentials");
 
 router.post('/TokenToCookie', (req, res,) => {
     let LocalUserName = req.body.inUserName;
@@ -32,7 +31,5 @@ router.post('/TokenToCookie', (req, res,) => {
         };
     })
 });
-
-
 
 module.exports = router;
