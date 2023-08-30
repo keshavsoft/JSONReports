@@ -1,35 +1,8 @@
 let express = require("express");
 let router = express.Router();
+let CommonControllers = require("../../../../controllers/Validate/Users/InUserDataJson/ForUserNameAndPassword.controller");
+let Middlewares = require("../../../../Middlewares/ForRoutes/Validate/Users/InUserDataJson/ForUserNameAndPassword")
 
-let Repo = require("../../../../Repository/Validate/Users/InUserDataJson/ForUserNameAndPassword")
-// let CommonjwtFunc = require("../../../../../../common/Jwt/Bs5");
-let CommonjwtFunc = require("../../../../../../common/Jwt/ForLogin/UserCredentials");
-
-router.post('/TokenToCookie', (req, res,) => {
-    let LocalUserName = req.body.inUserName;
-    let LocalPassWord = req.body.inPassWord;
-    
-    Repo.ForUserAndPasswordReturnFirmDetails({
-        inUserName: LocalUserName,
-        inPassWord: LocalPassWord,
-    }).then(PromiseData => {
-        if (PromiseData.KTF === false) {
-            res.json(PromiseData);
-        } else {
-            if (PromiseData.kPK > 0) {
-                CommonjwtFunc.CreateToken({
-                    inUserName: LocalUserName,
-                    inDataPk: PromiseData.kPK
-                }).then((PromiseDataFromJwt) => {
-                    res.cookie('KToken', PromiseDataFromJwt, { maxAge: 900000, httpOnly: false });
-
-                    PromiseData.KTF = true;
-
-                    res.json(PromiseData);
-                });
-            };
-        };
-    })
-});
+router.post('/', Middlewares.ForUserAndPasswordReturnFirmDetails, CommonControllers.ForUserAndPasswordReturnFirmDetails);
 
 module.exports = router;
